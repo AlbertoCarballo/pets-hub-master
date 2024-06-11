@@ -48,9 +48,23 @@ function Adoption() {
 
 function PetCard({ pet }) {
   const [showModal, setShowModal] = useState(false);
-
+  
   const handleOpenModal = () => setShowModal(true);
   const handleCloseModal = () => setShowModal(false);
+  const  handleAdoptar = async () => {
+    const data={
+      token: localStorage.getItem('sesion'),
+      idPetCatalog: pet.id_catalogo, 
+      petName: pet.nombre, 
+      petType:pet.tipo_mascota,
+      race: pet.raza,
+      photo: pet.foto
+    }
+    await axios.post("http://localhost:4000/adoptar",data).then(
+      response => alert("adoptado")
+
+    ).catch(error=>console.log(error));
+  };
 
   return (
     <div className="col-sm-6 col-md-4 col-lg-3 mb-4">
@@ -79,6 +93,7 @@ function PetCard({ pet }) {
           <p>Vacunado:  Sí </p>
           <p>Desparasitado: Sí </p>
           <p>Esterilizado: Sí </p>
+          <Button className='btn-modal' variant="secondary" onClick={handleAdoptar}>Adoptar</Button>
         </Modal.Body>
         <Modal.Footer>
           <Button className='btn-modal' variant="secondary" onClick={handleCloseModal}>Cerrar</Button>

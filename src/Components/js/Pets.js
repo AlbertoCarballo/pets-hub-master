@@ -9,8 +9,8 @@ import '../css/Pets.css'; // Asegúrate de que el archivo CSS se importe correct
 import BackgroundImage from './Background';
 import '../css/Card.css';
 import axios from 'axios';
-//aksbfjakwsdfkawefkawekfgqw
-// Mock function to get user ID. Replace this with actual implementation.
+import DataTable from 'react-data-table-component';
+
 function Pets() {
   const [reports, setReports] = useState('');
   const [showForm, setShowForm] = useState(false);
@@ -45,10 +45,10 @@ function Pets() {
     <div>
       <Navbar />
       <BackgroundImage src="https://i.ibb.co/D7pVW8y/bg-pethub-2.jpg" />
-      <h1 className="text-center mt-4 mb-4">REPORTES DE MASCOTAS DESAPARECIDAS</h1>
+      <h1 className="text-center mt-4 mb-4">Mis Mascotas</h1>
       <div className="container">
         <div className="text-center mb-4">
-          <Button className='btn-card' variant="primary" onClick={handleShowForm}>Generar Reporte</Button>
+          <Button className='btn-card' variant="primary" onClick={handleShowForm}>Añadir Mascota</Button>
         </div>
         <div className="row justify-content-center">
           {petsForAdoption.map((pet, i) => (
@@ -58,7 +58,7 @@ function Pets() {
         {/* Modal para el formulario */}
         <Modal show={showForm} onHide={handleCloseForm}>
           <Modal.Header closeButton>
-            <Modal.Title>Generar Reporte de Mascota Desaparecida</Modal.Title>
+            <Modal.Title>Añadir Mascota</Modal.Title>
           </Modal.Header>
           <Modal.Body>
             <ReportForm addReport={addReport} />
@@ -73,10 +73,49 @@ function Pets() {
 }
 function MyPetsCard({ pet }) {
   const [showModal, setShowModal] = useState(false);
-  const consultarVacunas = async (idMascota) => { alert(idMascota)};
+  const [vacunas, setVacunas] = useState([]);
+  const columns = [
+    {
+      name: 'Dueño',
+      selector: row => row.nombre_usuario,
+      sortable: true,
+    },
+    {
+      name: 'Vacuna',
+      selector: row => row.vacuna,
+      sortable: true,
+    },
+    {
+      name: 'Sucursal',
+      selector: row => row.sucursal,
+      sortable: true,
+    },
+    {
+      name: 'Duracion',
+      selector: row => row.duracion,
+      sortable: true,
+    },
+    {
+      name: 'Fecha de Aplicacion',
+      selector: row => row.fecha_cuando_se_vacuno,
+      sortable: true,
+    }
+  ];
+  const consultarVacunas = async (idMascota) => {
+    await axios.get(`http://localhost:4000/vacunas-mascotas/${idMascota}`, { headers: { token: localStorage.getItem('sesion') } }).then(
+      response => {
+        if (response.data.data) {
+          setVacunas(response.data.data);
+        }
+      }
+    ).catch((error) => {
+      console.log(error);
+    });
+
+  };
   useEffect(() => {
     if (showModal) {
-      
+
       consultarVacunas(pet.id_mascota)
     }
   }, [showModal]);
@@ -109,7 +148,7 @@ function MyPetsCard({ pet }) {
       </Card>
 
       {/* Modal */}
-      <Modal show={showModal} onHide={handleCloseModal}>
+      <Modal show={showModal} onHide={handleCloseModal} size='lg'>
         <Modal.Header closeButton>
           <Modal.Title>{pet.nombre}</Modal.Title>
         </Modal.Header>
@@ -123,6 +162,10 @@ function MyPetsCard({ pet }) {
           <p>Estado: {pet.estado}</p>
           <p>Fecha de desaparición: {pet.fecha_extravio}</p>
           {pet.status === 'Encontrado' && <p>Fecha de encontrado: {pet.dateFound}</p>}
+          <DataTable
+            columns={columns}
+            data={vacunas}
+          />
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleCloseModal}>Cerrar</Button>
@@ -133,19 +176,13 @@ function MyPetsCard({ pet }) {
 }
 
 function ReportForm({ addReport }) {
-  const URLM = 'http://localhost:4000/reportes-extravio';
+  const URLM = 'http://localhost:4000/mascotas';
   const [form, setForm] = useState({
-    name: '',
-    image: 'asdads',
+    petName: '',
+    photo: 'asdads',
+    typeOfPet: '',
     age: '',
-    breed: '',
-    description: '',
-    gender: '',
-    size: '',
-    lastSeen: '',
-    status: 'Perdido',
-    dateMissing: '',
-    dateFound: null
+    breed: ''
   });
 
 
@@ -167,19 +204,13 @@ function ReportForm({ addReport }) {
     let data = { token: localStorage.getItem('sesion'), form };
     await axios.post(URLM, data).then(
       respuesta => window.location.reload()
-    ).catch();
+    ).catch(error => console.log(error));
     setForm({
-      name: '',
-      image: '',
+      petName: '',
+      photo: 'asdads',
+      typeOfPet: '',
       age: '',
-      breed: '',
-      description: '',
-      gender: '',
-      size: '',
-      lastSeen: '',
-      status: 'Perdido',
-      dateMissing: '',
-      dateFound: null
+      breed: ''
     });
   };
 
@@ -187,7 +218,7 @@ function ReportForm({ addReport }) {
     <Form onSubmit={handleSubmit}>
       <Form.Group>
         <Form.Label>Nombre</Form.Label>
-        <Form.Control type="text" name="name" value={form.name} onChange={handleChange} required />
+        <Form.Control type="text" name="petName" value={form.petName} onChange={handleChange} required />
       </Form.Group>
       <Form.Group>
         <Form.Label>Foto</Form.Label>
@@ -202,35 +233,14 @@ function ReportForm({ addReport }) {
         <Form.Control type="text" name="breed" value={form.breed} onChange={handleChange} required />
       </Form.Group>
       <Form.Group>
-        <Form.Label>Descripción</Form.Label>
-        <Form.Control as="textarea" name="description" value={form.description} onChange={handleChange} required />
-      </Form.Group>
-      <Form.Group>
-        <Form.Label>Género</Form.Label>
-        <Form.Control as="select" name="gender" value={form.gender} onChange={handleChange} required>
+        <Form.Label>Tipo de Mascota</Form.Label>
+        <Form.Control as="select" name="typeOfPet" value={form.typeOfPet} onChange={handleChange} required>
           <option value="">Selecciona</option>
-          <option value="Macho">Macho</option>
-          <option value="Hembra">Hembra</option>
+          <option value="Perro">Perro</option>
+          <option value="Gato">Gato</option>
         </Form.Control>
       </Form.Group>
-      <Form.Group>
-        <Form.Label>Tamaño</Form.Label>
-        <Form.Control as="select" name="size" value={form.size} onChange={handleChange} required>
-          <option value="">Selecciona</option>
-          <option value="Pequeño">Pequeño</option>
-          <option value="Mediano">Mediano</option>
-          <option value="Grande">Grande</option>
-        </Form.Control>
-      </Form.Group>
-      <Form.Group>
-        <Form.Label>Última vez visto en</Form.Label>
-        <Form.Control type="text" name="lastSeen" value={form.lastSeen} onChange={handleChange} required />
-      </Form.Group>
-      <Form.Group>
-        <Form.Label>Fecha de desaparición</Form.Label>
-        <Form.Control type="date" name="dateMissing" value={form.dateMissing} onChange={handleChange} required />
-      </Form.Group>
-      <Button variant="primary" type="submit" className="mt-3">Generar Reporte</Button>
+      <Button variant="primary" type="submit" className="mt-3">Subir Mascota</Button>
     </Form>
   );
 }
