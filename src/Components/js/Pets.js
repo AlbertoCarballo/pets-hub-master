@@ -133,15 +133,14 @@ function MyPetsCard({ pet }) {
   };
 
   return (
-    <div className="col-sm-6 col-md-4 col-lg-3 mb-4">
+    <div className="col-sm-6 col-md-4 col-lg-3 mb-4" size="lg">
       <Card style={{ height: '100%', margin: '0 10px' }}>
         <Card.Img variant="top" src={pet.image} alt={pet.name} />
         <Card.Body className="d-flex flex-column justify-content-between">
           <div>
             <Card.Title className="text-center">{pet.nombre_mascotas}</Card.Title>
             <Card.Text>Edad: {pet.edad} años</Card.Text>
-            <Card.Text>tipo mascota: {pet.tipo_mascota}</Card.Text>
-            <Card.Text>tipo mascota: {pet.raza}</Card.Text>
+            <Card.Text>{pet.tipo_mascota} / {pet.raza}</Card.Text>
           </div>
           <Button variant="primary" className="btn-card align-self-center mt-2" onClick={handleOpenModal}>Ver</Button>
         </Card.Body>
@@ -150,18 +149,12 @@ function MyPetsCard({ pet }) {
       {/* Modal */}
       <Modal show={showModal} onHide={handleCloseModal} size='lg'>
         <Modal.Header closeButton>
-          <Modal.Title>{pet.nombre}</Modal.Title>
+          <Modal.Title>{pet.nombre_mascota}</Modal.Title>
         </Modal.Header>
         <Modal.Body>
+          <p>Tipo de Mascota: {pet.tipo_mascota}</p>
           <p>Raza: {pet.raza}</p>
-          <p>Edad: {pet.edad}</p>
-          <p>Descripción: {pet.descripcion}</p>
-          <p>Género: {pet.genero}</p>
-          <p>Tamaño: {pet.size}</p>
-          <p>Última vez visto en: {pet.visto_utlima_vez}</p>
-          <p>Estado: {pet.estado}</p>
-          <p>Fecha de desaparición: {pet.fecha_extravio}</p>
-          {pet.status === 'Encontrado' && <p>Fecha de encontrado: {pet.dateFound}</p>}
+          <p>Edad: {pet.edad} años</p>
           <DataTable
             columns={columns}
             data={vacunas}
