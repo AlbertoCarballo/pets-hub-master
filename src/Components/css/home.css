@@ -1,0 +1,132 @@
+body{
+  background-image: url('https://i.ibb.co/D7pVW8y/bg-pethub-2.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+}
+
+.home-container {
+  padding-top: 70px; /* Ajusta este valor según la altura de tu navbar */
+}
+.navbar {
+  height: 70px; /* Ajusta según la altura real de tu navbar */
+  margin-bottom: 20px;
+}
+
+.carousel-container {
+  position: relative;
+  width: 100%;
+  z-index: 1;
+  margin-top: 2300px;
+}
+
+.bg-container {
+  position: fixed; /* Fija el contenedor en la pantalla */
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+}
+
+
+.banner-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin-top: 50px !important;
+  }
+
+  .banner {
+    width: 48%;
+    margin-bottom: 20px;
+    padding: 20px;
+    background-color: #FFF;
+    border-radius: 16px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .banner img {
+    width: 100%;
+    height: 300px; /* Puedes ajustar esta altura según tus necesidades */
+    object-fit: cover; /* Esto asegura que las imágenes se ajusten al contenedor manteniendo su relación de aspecto */
+    border-radius: 8px;
+  }
+  
+  
+  .banner h2 {
+    font-size: 24px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+  
+  .banner p {
+    font-size: 16px;
+    margin-bottom: 10px;
+  }
+
+  .btn-banner {
+    border: none;
+    color: #fff;
+    background-image: linear-gradient(30deg, rgba(55,78,133,1) 0%, rgba(142,70,109,1) 100%);
+    border-radius: 20px;
+    background-size: 100% auto;
+    font-family: inherit;
+    font-size: 17px;
+    padding: 0.6em 1.5em;
+   }
+   
+   .btn-banner:hover {
+    background-position: right center;
+    background-size: 200% auto;
+    -webkit-animation: pulse 2s infinite;
+    animation: pulse512 1.5s infinite;
+   }
+   
+   @keyframes pulse512 {
+    0% {
+     box-shadow: 0 0 0 0 #8e466d;
+    }
+   
+    70% {
+     box-shadow: 0 0 0 10px rgb(55 78 133 / 0%);
+    }
+   
+    100% {
+     box-shadow: 0 0 0 0 rgb(55 78 133 / 0%);
+    }
+   }
+  
+  .banner-left-top {
+    order: 1;
+  }
+  
+  .banner-right-top {
+    order: 2;
+  }
+  
+  .banner-left-bottom {
+    order: 3;
+  }
+  
+  .banner-right-bottom {
+    order: 4;
+  }
+
+  .banner-mis-reportes {
+    order: 5;
+  }
+
+  .banner-reporte-maltrato {
+    order: 6;
+  }
+  
+  @media (max-width: 768px) {
+    .banner {
+      width: 100%;
+    }
+  }

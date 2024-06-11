@@ -1,0 +1,46 @@
+/* body {
+  background-image: url('https://i.ibb.co/Sn9YBC4/fondo-pets-hub.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+} */
+
+.vacuna {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .vacuna-imagen {
+    width: 100px;
+    height: auto;
+    margin-bottom: 10px;
+    border-radius: 50%;
+  }
+  
+  .vacuna-titulo {
+    font-size: 50px;
+    font-weight: bold;
+    margin-top: 1200px;
+    margin-bottom: 100px;
+    text-align: center;
+  }
+  
+  .vacuna-descripcion {
+    font-size: 16px;
+    margin-bottom: 20px;
+  }
+  
+  .vacuna-efectos-secundarios {
+    font-size: 14px;
+    color: #666;
+  }
+
+  #btn {
+    margin-top: 5px;
+  }

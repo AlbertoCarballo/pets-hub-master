@@ -1,0 +1,31 @@
+.btn-card {
+    border: none;
+    color: #fff;
+    background-image: linear-gradient(30deg, rgba(55,78,133,1) 0%, rgba(142,70,109,1) 100%);
+    border-radius: 20px;
+    background-size: 100% auto;
+    font-family: inherit;
+    font-size: 17px;
+    padding: 0.6em 1.5em;
+   }
+   
+   .btn-card:hover {
+    background-position: right center;
+    background-size: 200% auto;
+    -webkit-animation: pulse 2s infinite;
+    animation: pulse512 1.5s infinite;
+   }
+   
+   @keyframes pulse512 {
+    0% {
+     box-shadow: 0 0 0 0 #8e466d;
+    }
+   
+    70% {
+     box-shadow: 0 0 0 10px rgb(55 78 133 / 0%);
+    }
+   
+    100% {
+     box-shadow: 0 0 0 0 rgb(55 78 133 / 0%);
+    }
+   }
