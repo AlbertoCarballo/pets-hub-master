@@ -1,0 +1,47 @@
+.encabezado-vacunas {
+    display: block;
+    margin: 1250px auto 50px auto; /* Usar auto para centrar horizontalmente */
+    border-radius: 8px;
+    width: 60%;
+    height: auto;
+}
+
+.encabezado-mascotas{
+    display: block;
+    margin: 330px auto 50px auto; /* Usar auto para centrar horizontalmente */
+    border-radius: 8px;
+    width: 60%;
+    height: auto;
+}
+
+.encabezado-adopcion{
+    display: block;
+    margin: 330px auto 50px auto; /* Usar auto para centrar horizontalmente */
+    border-radius: 8px;
+    width: 60%;
+    height: auto;
+}
+
+.encabezado-desaparicion{
+    display: block;
+    margin: 330px auto 50px auto; /* Usar auto para centrar horizontalmente */
+    border-radius: 8px;
+    width: 60%;
+    height: auto;
+}
+
+.encabezado-misreportes{
+    margin: 700px auto 50px auto; /* Usar auto para centrar horizontalmente */
+    border-radius: 8px;
+    width: 60%;
+    height: auto;
+}
+
+.encabezado-maltrato{
+    display: block;
+    margin: 330px auto 50px auto; /* Usar auto para centrar horizontalmente */
+    border-radius: 8px;
+    width: 60%;
+    height: auto;
+}
+

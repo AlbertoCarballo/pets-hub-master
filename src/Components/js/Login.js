@@ -22,7 +22,7 @@ function Login() {
     // useEffect debe escuchar al loggedIn, cuando sea true, dentro del useEfect redirigir a la view
 
     function Usuario() {
-        const URL = 'http://localhost:4000/login';
+        const URL = 'https://lucky-enchantment-production.up.railway.app/login';
         const data = { email: username, password: password };
 
         axios.post(URL, data)
@@ -55,7 +55,6 @@ function Login() {
 
     return (
         <>
-            <Navbar />
             <BackgroundImage src="https://i.ibb.co/D7pVW8y/bg-pethub-2.jpg" />
 
             <div className="login-container">

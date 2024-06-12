@@ -10,10 +10,12 @@
 .navbar-brand-container {
     display: flex;
     align-items: center;
+    background-color: bisque;
 }
 
 .navbar-brand-container img {
     margin-right: 10px;
+    background-color: bisque;
 }
 
 .nav-bar {
@@ -22,6 +24,10 @@
     justify-content: space-between;
     margin-top: 0.5em;
     margin-bottom: 0.5em;
+    background-color: bisque;
+}
+.navbar {
+    background-color: bisque;
 }
 
 .user-foto {

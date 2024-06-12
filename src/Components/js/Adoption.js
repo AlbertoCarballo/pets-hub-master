@@ -8,11 +8,16 @@ import '../css/Pets.css'; // Asegúrate de que el archivo CSS se importe correct
 import BackgroundImage from './Background';
 import '../css/Card.css'
 import axios from 'axios';
+import { Form } from 'react-bootstrap';
 
 
 function Adoption() {
   const [petsForAdoption, setAnimal] = useState([]);
-  const URL = 'http://localhost:4000/adopciones';
+  const [showForm, setShowForm] = useState(false);
+
+  const handleCloseForm = () => setShowForm(false);
+
+  const URL = 'https://lucky-enchantment-production.up.railway.app/adopciones';
   useEffect(() => {
     if (!(petsForAdoption.length > 0)) {
       console.log('ENTRO');
@@ -35,11 +40,27 @@ function Adoption() {
       <BackgroundImage src="https://i.ibb.co/D7pVW8y/bg-pethub-2.jpg" />
       <h1 className="text-center mt-4 mb-4">MASCOTAS EN ADOPCIÓN</h1>
       <div className="container">
+        <div className="text-center mb-4">
+          <Button className='btn-card' variant="primary" onClick={e => setShowForm(true)}>Generar Adopcion</Button>
+
+        </div>
         <div className="row justify-content-center">
+
           {petsForAdoption.map((pet, i) => (
             <PetCard key={i} pet={pet} />
           ))}
         </div>
+        <Modal show={showForm} onHide={handleCloseForm}>
+          <Modal.Header closeButton>
+            <Modal.Title>Generar Reporte de Mascota Desaparecida</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <ReportForm />
+          </Modal.Body>
+          <Modal.Footer>
+            <Button className='btn-modal' variant="secondary" onClick={handleCloseForm}>Cerrar</Button>
+          </Modal.Footer>
+        </Modal>
       </div>
     </div>
   );
@@ -48,22 +69,22 @@ function Adoption() {
 
 function PetCard({ pet }) {
   const [showModal, setShowModal] = useState(false);
-  
+
   const handleOpenModal = () => setShowModal(true);
   const handleCloseModal = () => setShowModal(false);
-  const  handleAdoptar = async () => {
-    const data={
+  const handleAdoptar = async () => {
+    const data = {
       token: localStorage.getItem('sesion'),
-      idPetCatalog: pet.id_catalogo, 
-      petName: pet.nombre, 
-      petType:pet.tipo_mascota,
+      idPetCatalog: pet.id_catalogo,
+      petName: pet.nombre,
+      petType: pet.tipo_mascota,
       race: pet.raza,
       photo: pet.foto
     }
-    await axios.post("http://localhost:4000/adoptar",data).then(
-      response => alert("adoptado")
+    await axios.post("https://lucky-enchantment-production.up.railway.app/adoptar", data).then(response => 
+      window.location.reload()
 
-    ).catch(error=>console.log(error));
+    ).catch(error => console.log(error));
   };
 
   return (
@@ -102,6 +123,75 @@ function PetCard({ pet }) {
     </div>
   );
 }
+
+function ReportForm() {
+  const URLM = 'https://lucky-enchantment-production.up.railway.app/adopciones';
+  const [form, setForm] = useState({
+    petName: '',
+    photo: 'asdads',
+    petType: '',
+    age: '',
+    race: ''
+  });
+
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setForm({
+      ...form,
+      [name]: value
+    });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    let data = { token: localStorage.getItem('sesion'), form };
+    await axios.post(URLM, data).then(response => {
+      if (response.status===200){
+        window.location.reload();
+      }
+    }
+    ).catch();
+    setForm({
+      petName: '',
+      petType: '',
+      photo: 'asdads',
+      age: '',
+      race: ''
+    });
+  };
+
+  return (
+    <Form onSubmit={handleSubmit}>
+      <Form.Group>
+        <Form.Label>Nombre de Mascota</Form.Label>
+        <Form.Control type="text" name="petName" value={form.petName} onChange={handleChange} required />
+      </Form.Group>
+      <Form.Group>
+        <Form.Label>Tipo de Mascota</Form.Label>
+        <Form.Control as="select" name="petType" value={form.petType} onChange={handleChange} required>
+          <option value="">Selecciona</option>
+          <option value="Perro">Perro</option>
+          <option value="Gato">Gato</option>
+        </Form.Control>
+      </Form.Group>
+      <Form.Group>
+        <Form.Label>Foto</Form.Label>
+        <Form.Control type="file" name="image" accept="image/*" />
+      </Form.Group>
+      <Form.Group>
+        <Form.Label>Edad</Form.Label>
+        <Form.Control type="text" name="age" value={form.age} onChange={handleChange} required />
+      </Form.Group>
+      <Form.Group>
+        <Form.Label>Raza</Form.Label>
+        <Form.Control type="text" name="race" value={form.race} onChange={handleChange} required />
+      </Form.Group>
+      <Button variant="primary" type="submit" className="mt-3">Generar Reporte</Button>
+    </Form>
+  );
+}
+
 
 
 export default Adoption;

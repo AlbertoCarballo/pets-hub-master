@@ -8,13 +8,14 @@ import '../css/Pets.css';
 import BackgroundImage from './Background';
 import '../css/Card.css';
 import axios from 'axios';
+import moment from 'moment';
 
 
 function MissingPets() {
   const [reports, setReports] = useState('');
   const [showForm, setShowForm] = useState(false);
   const [petsForAdoption, setAnimal] = useState([]);
-  const URL = 'http://localhost:4000/reportes-extravio';
+  const URL = 'https://lucky-enchantment-production.up.railway.app/reportes-extravio';
   useEffect(() => {
     if (!(petsForAdoption.length > 0)) {
       console.log('ENTRO');
@@ -32,9 +33,6 @@ function MissingPets() {
     }
   }, []);
 
-  const addReport = (report) => {
-    setReports([report, ...reports]);
-  };
 
   const handleShowForm = () => setShowForm(true);
   const handleCloseForm = () => setShowForm(false);
@@ -59,7 +57,7 @@ function MissingPets() {
             <Modal.Title>Generar Reporte de Mascota Desaparecida</Modal.Title>
           </Modal.Header>
           <Modal.Body>
-            <ReportForm addReport={addReport} />
+            <ReportForm />
           </Modal.Body>
           <Modal.Footer>
             <Button className='btn-modal' variant="secondary" onClick={handleCloseForm}>Cerrar</Button>
@@ -110,7 +108,7 @@ function MissingPetCard({ pet }) {
           <p>Tamaño: {pet.size}</p>
           <p>Última vez visto en: {pet.visto_utlima_vez}</p>
           <p>Estado: {pet.estado}</p>
-          <p>Fecha de desaparición: {pet.fecha_extravio}</p>
+          <p>Fecha de desaparición: {moment(pet.fecha_extravio).format('DD/MM/YYYY')}</p>
           {pet.status === 'Encontrado' && <p>Fecha de encontrado: {pet.dateFound}</p>}
         </Modal.Body>
         <Modal.Footer>
@@ -121,8 +119,8 @@ function MissingPetCard({ pet }) {
   );
 }
 
-function ReportForm({ addReport }) {
-  const URLM = 'http://localhost:4000/reportes-extravio';
+function ReportForm() {
+  const URLM = 'https://lucky-enchantment-production.up.railway.app/reportes-extravio';
   const [form, setForm] = useState({
     name: '',
     image: 'asdads',

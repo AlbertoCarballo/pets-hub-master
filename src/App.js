@@ -11,6 +11,7 @@ import Adoption from './Components/js/Adoption.js';
 import Pets from './Components/js/Pets.js';
 import MissingPets from './Components/js/MissingPets.js';
 import ReportAbuse from './Components/js/ReportAbuse.js';
+import Reports from './Components/js/MyReports.js'
 import axios from 'axios';
 
 function App() {
@@ -53,6 +54,7 @@ function App() {
           <Route path="/pets" element={<Pets />} />
           <Route path="/adoption" element={<Adoption />} />
           <Route path="/missingpets" element={<MissingPets />} />
+          <Route path="/reports" element={<Reports />} />
         </Routes>
       </Router>
     </>

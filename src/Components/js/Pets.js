@@ -4,7 +4,7 @@ import Card from 'react-bootstrap/Card';
 import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
 import Navbar from './Navbar';
-// import { MyPets as initialPets } from './PetsList'; // Asegúrate de que este archivo exporte correctamente el arreglo de mascotas
+import moment from 'moment';
 import '../css/Pets.css'; // Asegúrate de que el archivo CSS se importe correctamente
 import BackgroundImage from './Background';
 import '../css/Card.css';
@@ -15,7 +15,7 @@ function Pets() {
   const [reports, setReports] = useState('');
   const [showForm, setShowForm] = useState(false);
   const [petsForAdoption, setAnimal] = useState([]);
-  const URL = 'http://localhost:4000/mascotas';
+  const URL = 'https://lucky-enchantment-production.up.railway.app/mascotas';
   useEffect(() => {
     let data = { token: localStorage.getItem('sesion') };
     if (!(petsForAdoption.length > 0)) {
@@ -97,12 +97,12 @@ function MyPetsCard({ pet }) {
     },
     {
       name: 'Fecha de Aplicacion',
-      selector: row => row.fecha_cuando_se_vacuno,
+      selector: row => moment(row.fecha_cuando_se_vacuno).format('DD/MM/YYYY'),
       sortable: true,
     }
   ];
   const consultarVacunas = async (idMascota) => {
-    await axios.get(`http://localhost:4000/vacunas-mascotas/${idMascota}`, { headers: { token: localStorage.getItem('sesion') } }).then(
+    await axios.get(`https://lucky-enchantment-production.up.railway.app/vacunas-mascotas/${idMascota}`, { headers: { token: localStorage.getItem('sesion') } }).then(
       response => {
         if (response.data.data) {
           setVacunas(response.data.data);
@@ -169,7 +169,7 @@ function MyPetsCard({ pet }) {
 }
 
 function ReportForm({ addReport }) {
-  const URLM = 'http://localhost:4000/mascotas';
+  const URLM = 'https://lucky-enchantment-production.up.railway.app/mascotas';
   const [form, setForm] = useState({
     petName: '',
     photo: 'asdads',

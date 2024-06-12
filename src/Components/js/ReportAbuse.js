@@ -8,13 +8,14 @@ import '../css/Pets.css';
 import BackgroundImage from './Background';
 import '../css/Card.css';
 import axios from 'axios';
+import moment from 'moment';
 
 
 function ReportAbuse() {
     const [reports, setReports] = useState('');
     const [showForm, setShowForm] = useState(false);
     const [petsForAdoption, setAnimal] = useState([]);
-    const URL = 'http://localhost:4000/reportes-maltrato';
+    const URL = 'https://lucky-enchantment-production.up.railway.app/reportes-maltrato';
     useEffect(() => {
         if (!(petsForAdoption.length > 0)) {
             console.log('ENTRO');
@@ -91,7 +92,7 @@ function MissingPetCard({ pet }) {
                 <Card.Body className="d-flex flex-column justify-content-between">
                     <div>
                         <Card.Title className="text-center">{pet.raza}</Card.Title>
-                        <Card.Text>Fecha de maltrato: {pet.fecha_maltrato} </Card.Text>
+                        <Card.Text>Fecha de maltrato: {moment(pet.fecha_maltrato).format('DD/MM/YYYY')} </Card.Text>
                         <div style={statusStyle}>{pet.estado}</div>
                     </div>
                     <Button variant="primary" className="btn-card align-self-center mt-2" onClick={handleOpenModal}>Ver</Button>
@@ -107,7 +108,7 @@ function MissingPetCard({ pet }) {
                     <p>Tipo de Mascota: {pet.tipo_mascota}</p>
                     <p>Género: {pet.genero}</p>
                     <p>Descripción: {pet.descripcion}</p>
-                    <p>Fecha de desaparición: {pet.fecha_maltrato}</p>
+                    <p>Fecha de reporte: {moment(pet.fecha_maltrato).format('DD/MM/YYYY')}</p>
                     {pet.status === 'Encontrado' && <p>Fecha de encontrado: {pet.dateFound}</p>}
                 </Modal.Body>
                 <Modal.Footer>
@@ -119,7 +120,7 @@ function MissingPetCard({ pet }) {
 }
 
 function ReportForm({ addReport }) {
-    const URLM = 'http://localhost:4000/reportes-maltrato';
+    const URLM = 'https://lucky-enchantment-production.up.railway.app/reportes-maltrato';
     const [form, setForm] = useState({
         petType: '',
         gender: '',

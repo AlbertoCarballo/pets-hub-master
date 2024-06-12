@@ -11,25 +11,31 @@ import {
 import NavBar from './Navbar';
 import '../css/profile.css';
 import axios from 'axios';
+import moment from 'moment';
 
 
 
 export default function Profile() {
 
     const [user, setUser] = useState("");
-    const URL ="http://localhost:4000/ver-user"
-    const data ={token:localStorage.getItem('sesion')};
+    const URL = "http://localhost:4000/ver-user"
+    const data = { token: localStorage.getItem('sesion') };
 
     console.log(data);
     useEffect(() => {
         axios.post(URL, data)
             .then(function (response) {
-                console.log(response.data);
-                setUser(response.data);
+                if (response.status !== 200) {
+                    localStorage.clear();
+                    window.location.href = "/login";
+                    }
+                    setUser(response.data);
+                    console.log(response.data);
             })
             .catch(function (error) {
                 console.log(error);
-                alert('An error occurred during login');
+                window.location.href = "/login";
+                // alert('An error occurred during login');
             });
 
     }, []);
@@ -90,7 +96,7 @@ export default function Profile() {
                                             <MDBCardText>Fecha de nacimiento</MDBCardText>
                                         </MDBCol>
                                         <MDBCol xs="12" sm="6" md="9" lg="9" xl="9">
-                                            <MDBCardText className="text-muted">{user.dob}</MDBCardText>
+                                            <MDBCardText className="text-muted">{moment(user.dob).format("DD/MM/YYYY")}</MDBCardText>
                                         </MDBCol>
                                     </MDBRow>
                                     <hr />
