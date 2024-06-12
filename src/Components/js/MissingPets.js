@@ -87,7 +87,7 @@ function MissingPetCard({ pet }) {
   return (
     <div className="col-sm-6 col-md-4 col-lg-3 mb-4">
       <Card style={{ height: '100%', margin: '0 10px' }}>
-        <Card.Img variant="top" src={pet.image} alt={pet.name} />
+      <Card.Img  variant="top" src="https://i.ibb.co/0C6Rp2Q/Captura-de-pantalla-2024-06-11-a-la-s-5-38-56-p-m.png" alt={pet.name} style={{ width: "100%", height: "250px"}}/>
         <Card.Body className="d-flex flex-column justify-content-between">
           <div>
             <Card.Title className="text-center">{pet.nombre}</Card.Title>

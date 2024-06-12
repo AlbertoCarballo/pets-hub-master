@@ -45,7 +45,7 @@ function Pets() {
     <div>
       <Navbar />
       <BackgroundImage src="https://i.ibb.co/D7pVW8y/bg-pethub-2.jpg" />
-      <h1 className="text-center mt-4 mb-4">Mis Mascotas</h1>
+      <h1 className="text-center mt-4 mb-4" >Mis Mascotas</h1>
       <div className="container">
         <div className="text-center mb-4">
           <Button className='btn-card' variant="primary" onClick={handleShowForm}>Añadir Mascota</Button>
@@ -133,14 +133,14 @@ function MyPetsCard({ pet }) {
   };
 
   return (
-    <div className="col-sm-6 col-md-4 col-lg-3 mb-4" size="lg">
+    <div className="col-sm-6 col-md-4 col-lg-6 mb-4" >
       <Card style={{ height: '100%', margin: '0 10px' }}>
-        <Card.Img variant="top" src={pet.image} alt={pet.name} />
+        <Card.Img  variant="top" src="https://i.ibb.co/0C6Rp2Q/Captura-de-pantalla-2024-06-11-a-la-s-5-38-56-p-m.png" alt={pet.name} style={{ height: "250px"}}/>
         <Card.Body className="d-flex flex-column justify-content-between">
           <div>
             <Card.Title className="text-center">{pet.nombre_mascotas}</Card.Title>
-            <Card.Text>Edad: {pet.edad} años</Card.Text>
-            <Card.Text>{pet.tipo_mascota} / {pet.raza}</Card.Text>
+            <Card.Text>Edad: {pet.edad} </Card.Text>
+            <Card.Text>{pet.tipo_mascota} </Card.Text>
           </div>
           <Button variant="primary" className="btn-card align-self-center mt-2" onClick={handleOpenModal}>Ver</Button>
         </Card.Body>
